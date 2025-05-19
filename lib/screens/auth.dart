@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:chat_app/widgets/user_image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -71,24 +74,26 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          TextFormField(
-                            decoration:
-                                InputDecoration(labelText: 'Email address'),
-                            keyboardType: TextInputType.emailAddress,
-                            autocorrect: false,
-                            textCapitalization: TextCapitalization.none,
-                            validator: (value) {
-                              if (value == null ||
-                                  value.isEmpty ||
-                                  !value.contains('@')) {
-                                return 'Please enter a valid email address';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              _enteredEmail = value!;
-                            },
-                          ),
+                          !_isLogin
+                              ? UserImagePicker()
+                              : TextFormField(
+                                  decoration: InputDecoration(
+                                      labelText: 'Email address'),
+                                  keyboardType: TextInputType.emailAddress,
+                                  autocorrect: false,
+                                  textCapitalization: TextCapitalization.none,
+                                  validator: (value) {
+                                    if (value == null ||
+                                        value.isEmpty ||
+                                        !value.contains('@')) {
+                                      return 'Please enter a valid email address';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    _enteredEmail = value!;
+                                  },
+                                ),
                           TextFormField(
                             decoration: InputDecoration(labelText: 'Password'),
                             obscureText: true,
