@@ -74,26 +74,25 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          !_isLogin
-                              ? UserImagePicker()
-                              : TextFormField(
-                                  decoration: InputDecoration(
-                                      labelText: 'Email address'),
-                                  keyboardType: TextInputType.emailAddress,
-                                  autocorrect: false,
-                                  textCapitalization: TextCapitalization.none,
-                                  validator: (value) {
-                                    if (value == null ||
-                                        value.isEmpty ||
-                                        !value.contains('@')) {
-                                      return 'Please enter a valid email address';
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (value) {
-                                    _enteredEmail = value!;
-                                  },
-                                ),
+                          if (!_isLogin) UserImagePicker(),
+                          TextFormField(
+                            decoration:
+                                InputDecoration(labelText: 'Email address'),
+                            keyboardType: TextInputType.emailAddress,
+                            autocorrect: false,
+                            textCapitalization: TextCapitalization.none,
+                            validator: (value) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !value.contains('@')) {
+                                return 'Please enter a valid email address';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _enteredEmail = value!;
+                            },
+                          ),
                           TextFormField(
                             decoration: InputDecoration(labelText: 'Password'),
                             obscureText: true,
